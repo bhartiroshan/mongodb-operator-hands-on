@@ -1,0 +1,38 @@
+apiVersion: mongodb.com/v1
+kind: MongoDB
+metadata:
+  name: demo-replicaset
+spec:
+  members: 3
+  version: 4.0.23-ent
+  security:
+    authentication:
+      enabled : true
+      modes: ["SCRAM"]
+  additionalMongodConfig: #Use this to send any custom MongoDB configuration which is not supported via Operator
+    setParameter:
+      authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256
+    auditLog:
+      destination: "file"
+      format: "JSON"
+      path: "/var/log/mongodb-mms-automation/audit.log"
+      filter: '{ atype: { $in: [ "createUser", "dropUser", "updateUser", "grantRolesToUser", "revokeRolesFromUser", "updateRole", "dropRole", "grantRolesToRole", "grantPrivilegesToRole", "revokeRolesFromRole", "revokePrivilegesFromRole" ] } }'
+  opsManager: #Ops Manager specific connection details
+    configMapRef:
+      name: om-org-config #check om-org-config.yaml
+  credentials: om-api-credentials #check om-api-credentials.yaml
+  type: ReplicaSet
+  persistent: true
+  podSpec:
+    podTemplate:
+      spec:
+        containers:
+        - name: mongodb-enterprise-database
+          resources:
+            limits:
+              cpu: '0.25'
+              memory: 500M
+    persistence:
+      single:
+        storage: 5G
+

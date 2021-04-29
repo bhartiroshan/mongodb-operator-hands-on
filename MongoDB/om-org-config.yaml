@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: om-org-config
+    namespace: mongodb
+data:
+    projectName: operator-hands-on
+    orgId: 608a585493a5367603b0294e
+    baseUrl: http://ec2-35-154-241-28.ap-south-1.compute.amazonaws.com:8080
+    
+    
