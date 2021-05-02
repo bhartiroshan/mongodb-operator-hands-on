@@ -18,3 +18,21 @@
    ```
   - For more details refer to the github repo. 
   - Remember to terminate the instance after testing. 
+
+### Install MongoDB
+
+### Prerequisites:
+- Creata a ConfigMap which holds Organization related information where Operator managed deployment will be place. 
+- Update `om-org-config.yaml` with OrgId and Project Name(this is the desired project name).
+- Create an Org Level API Key in Ops Manager and update `om-api-credentials.yaml` with public and private API keys.
+- Apply this secret object
+```
+kubectl apply -f om-api-credentials.yaml
+```
+
+### The MongoDB Folder has following CRDs(YAML) files for hands-on practice. 
+- demo-replicaset.yaml - The basic CRDs for plain/simple install of MongoDB.
+- demo-replicaset-tls.yaml - The TLS enabled deployment of MongoDB. 
+- demo-replicaset-split-horizon.yaml - The TLS enabled and Split horizon configured MongoDB for external connectivity use cases. 
+
+
