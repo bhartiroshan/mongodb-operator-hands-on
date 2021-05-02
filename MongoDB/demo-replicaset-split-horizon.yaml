@@ -4,11 +4,7 @@ metadata:
   name: demo-replicaset
 spec:
   members: 3
-  version: 4.0.23-ent
-  security:
-    authentication:
-      enabled : true
-      modes: ["SCRAM"]
+  version: 4.2.13-ent
   additionalMongodConfig: #Use this to send any custom MongoDB configuration which is not supported via Operator
     setParameter:
       authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256
@@ -22,6 +18,18 @@ spec:
       name: om-org-config #check om-org-config.yaml
   credentials: om-api-credentials #check om-api-credentials.yaml
   type: ReplicaSet
+  security:
+    authentication:
+      enabled : true
+      modes: ["SCRAM"]
+    tls:
+      enabled: true
+      ca: demo-replicaset-ca #CA Certificate with complete chain - see certs/ca-pem
+  connectivity:
+    replicaSetHorizons:
+      - "example-horizon": "ec2-13-127-0-115.ap-south-1.compute.amazonaws.com:30017"
+      - "example-horizon": "ec2-13-127-0-115.ap-south-1.compute.amazonaws.com:30018"
+      - "example-horizon": "ec2-13-127-0-115.ap-south-1.compute.amazonaws.com:30019"
   persistent: true
   podSpec:
     podTemplate:

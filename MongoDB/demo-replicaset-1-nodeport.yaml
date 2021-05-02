@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-replicaset-1-nodeport
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - protocol: TCP
+    nodePort: 30018
+    port: 27017
+  selector:
+    statefulset.kubernetes.io/pod-name: demo-replicaset-1
+  type: NodePort

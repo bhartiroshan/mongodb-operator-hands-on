@@ -5,10 +5,6 @@ metadata:
 spec:
   members: 3
   version: 4.0.23-ent
-  security:
-    authentication:
-      enabled : true
-      modes: ["SCRAM"]
   additionalMongodConfig: #Use this to send any custom MongoDB configuration which is not supported via Operator
     setParameter:
       authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256
@@ -19,10 +15,16 @@ spec:
       filter: '{ atype: { $in: [ "createUser", "dropUser", "updateUser", "grantRolesToUser", "revokeRolesFromUser", "updateRole", "dropRole", "grantRolesToRole", "grantPrivilegesToRole", "revokeRolesFromRole", "revokePrivilegesFromRole" ] } }'
   opsManager: #Ops Manager specific connection details
     configMapRef:
-      name: om-org-config
-  credentials: om-api-credentials
+      name: om-org-config #check om-org-config.yaml
+  credentials: om-api-credentials #check om-api-credentials.yaml
   type: ReplicaSet
-  additionalMongodConfig:
+  security:
+    authentication:
+      enabled : true
+      modes: ["SCRAM"]
+    tls:
+      enabled: true
+      ca: demo-replicaset-ca #CA Certificate with complete chain - see certs/ca-pem
   persistent: true
   podSpec:
     podTemplate:
