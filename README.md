@@ -22,13 +22,13 @@ You can get access to Openshift K8s Cluster(https://okd-ts-snkxg.mongodbstitch.c
 
 - Install MongoDB Kubernetes Operator
     1. Clone the MongoDB Kubernetes Operator git repository
-    a. git clone https://github.com/mongodb/mongodb-enterprise-kubernetes.git :
+    - git clone https://github.com/mongodb/mongodb-enterprise-kubernetes.git :
 
     2. Install the CRDs(Custom Resource Definitions), it allows Kubernetes to understand Custome Objects like MongoDB OpsManager
-    a. kubectl create namespace mongodb :
-    b. kubectl apply -f mongodb-enterprise-kubernetes/crds.yaml :
-    c. kubectl get crd : # Verify CRDs are installed
+    - kubectl create namespace mongodb :
+    - kubectl apply -f mongodb-enterprise-kubernetes/crds.yaml :
+    - kubectl get crd : # Verify CRDs are installed
 
     3. Install the Operator
-    a. kubectl apply -f mongodb-enterprise-kubernetes/mongodb-enterprise.yaml :
-    b. kubectl get pods : # verify Operator pod is running 
+    -  kubectl apply -f mongodb-enterprise-kubernetes/mongodb-enterprise.yaml :
+    -  kubectl get pods : # verify Operator pod is running 
