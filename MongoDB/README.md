@@ -43,13 +43,15 @@
 - `certs` - Contain pre-generated certs if you do not wish to change the replicaset name(metadata.name) of the above CRDs.
   - ca-pem - contains CA Cert
   - demo-replicaset-{0,1,2}-pem - containes MongoDB certificates.
-- You may need to regenerate certificate for split horizon configuration as it has a specific DNS in generated certificate.
-- A quickest way to generate certificate is to use https://github.com/bhartiroshan/tlsgencer repo.
+  - You may need to regenerate certificate for split horizon configuration as it has a specific DNS in generated certificate.
+  - A quickest way to generate certificate is to use https://github.com/bhartiroshan/tlsgencer repo.
   - Clone the repo and just run like below.
-  ```
-  ./tlsgencer -server -host=demo-replicaset-1.demo-replicaset-svc.mongodb.svc.cluster.local,demo-replicaset-2.demo-replicaset-svc.mongodb.svc.cluster.local,ec2-10-20-30-40.ap-south-1.compute.amazonaws.com -cn=demo-replicaset
-  ```
+    ```
+    ./tlsgencer -server -host=server1.com,server2.com -cn=demo-replicaset
+    ```
   - The certificate will be ready within seconds. Please refer to repo for more details. 
+
+- `service-nodeport` - Contains nodeport service samples to expose the replica-set pods. 
 
 
 
