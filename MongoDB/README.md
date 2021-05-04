@@ -2,9 +2,9 @@
 
 ### Requirements
 
-- Install Operator, please refer to README.md in root directory. 
+1. Install Operator, please refer to README.md in root directory. 
 
-- Ops Manager Instance
+2. Ops Manager Instance
   - For Testing purpose you can spin up an EC2 instance and install Ops Manager. 
   - For quick lab setup, please refer to repo https://github.com/bhartiroshan/om. 
   - Launch Amazon EC2 instance and while launching provide below in EC2 user data script. 
@@ -23,16 +23,33 @@
 
 ### Prerequisites:
 - Creata a ConfigMap which holds Organization related information where Operator managed deployment will be place. 
-- Update `om-org-config.yaml` with OrgId and Project Name(this is the desired project name).
-- Create an Org Level API Key in Ops Manager and update `om-api-credentials.yaml` with public and private API keys.
-- Apply this secret object
-```
-kubectl apply -f om-api-credentials.yaml
-```
+- Update `om-connection/om-org-config.yaml` with OrgId and Project Name(this is the desired project name).
+  - Apply this ConfigMap object
+  ```
+  kubectl apply -f om-connection/om-org-config.yaml
+  ```
+- Create an Org Level API Key in Ops Manager and update `om-connection/om-api-credentials.yaml` with public and private API keys.
+  - Apply this secret object
+  ```
+  kubectl apply -f om-connection/om-api-credentials.yaml
+  ```
 
 ### The MongoDB Folder has following CRDs(YAML) files for hands-on practice. 
-- demo-replicaset.yaml - The basic CRDs for plain/simple install of MongoDB.
-- demo-replicaset-tls.yaml - The TLS enabled deployment of MongoDB. 
-- demo-replicaset-split-horizon.yaml - The TLS enabled and Split horizon configured MongoDB for external connectivity use cases. 
+- `replicaset-samples` - Contains sample replica-set CRDs.
+    - `demo-replicaset.yaml` - The basic CRDs for plain/simple install of MongoDB.
+    - `demo-replicaset-tls.yaml` - The TLS enabled deployment of MongoDB. 
+    - `demo-replicaset-split-horizon.yaml` - The TLS enabled and Split horizon configured MongoDB for external connectivity use cases. 
+
+- `certs` - Contain pre-generated certs if you do not wish to change the replicaset name(metadata.name) of the above CRDs.
+  - ca-pem - contains CA Cert
+  - demo-replicaset-{0,1,2}-pem - containes MongoDB certificates.
+- You may need to regenerate certificate for split horizon configuration as it has a specific DNS in generated certificate.
+- A quickest way to generate certificate is to use https://github.com/bhartiroshan/tlsgencer repo.
+  - Clone the repo and just run like below.
+  ```
+  ./tlsgencer -server -host=demo-replicaset-1.demo-replicaset-svc.mongodb.svc.cluster.local,demo-replicaset-2.demo-replicaset-svc.mongodb.svc.cluster.local,ec2-10-20-30-40.ap-south-1.compute.amazonaws.com -cn=demo-replicaset
+  ```
+  - The certificate will be ready within seconds. Please refer to repo for more details. 
+
 
 
