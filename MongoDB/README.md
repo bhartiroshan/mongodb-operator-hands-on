@@ -4,7 +4,14 @@
 
 1. Install Operator, please refer to README.md in root directory. 
 
-2. Ops Manager Instance
+2. Cloud Manager account(Recommended)
+  - Go to https://cloud.mongodb.com
+  - Create Organization level API keys that will be required in later phase. 
+  - Add Operator pod/worker node IP in the whitelist entry. 
+  - Also note the organization ID. 
+
+
+3. Ops Manager Instance(optional), if you already have Cloud Manager account prefer using that.  
   - For Testing purpose you can spin up an EC2 instance and install Ops Manager. 
   - For quick lab setup, please refer to repo https://github.com/bhartiroshan/om. 
   - Launch Amazon EC2 instance and while launching provide below in EC2 user data script. 
